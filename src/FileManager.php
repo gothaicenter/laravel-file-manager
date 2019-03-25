@@ -114,7 +114,7 @@ class FileManager
      *
      * @return array
      */
-    public function upload($disk, $path, $files, $overwrite)
+    public function upload($disk, $path, $files, $overwrite, $visibility="private")
     {
         foreach ($files as $file) {
             // skip or overwrite files
@@ -129,7 +129,8 @@ class FileManager
             Storage::disk($disk)->putFileAs(
                 $path,
                 $file,
-                $file->getClientOriginalName()
+                $file->getClientOriginalName(),
+                ($visibility)?"private":"public"
             );
         }
 
@@ -407,13 +408,14 @@ class FileManager
      *
      * @return array
      */
-    public function updateFile($disk, $path, $file)
+    public function updateFile($disk, $path, $file, $visibility="private")
     {
         // update file
         Storage::disk($disk)->putFileAs(
             $path,
             $file,
-            $file->getClientOriginalName()
+            $file->getClientOriginalName(),
+            ($visibility)?"private":"public"
         );
 
         // path for new file

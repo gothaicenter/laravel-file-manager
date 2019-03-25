@@ -117,7 +117,8 @@ class FileManagerController extends Controller
             $request->input('disk'),
             $request->input('path'),
             $request->file('files'),
-            $request->input('overwrite')
+            $request->input('overwrite'),
+            $request->input('visibility'),
         );
 
         event(new FilesUploaded($request));
@@ -313,7 +314,8 @@ class FileManagerController extends Controller
             $this->fm->updateFile(
                 $request->input('disk'),
                 $request->input('path'),
-                $request->file('file')
+                $request->file('file'),
+                $request->input('visibility'),
             )
         );
     }
