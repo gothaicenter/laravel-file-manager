@@ -125,12 +125,14 @@ class FileManager
                 continue;
             }
 
+            $visibility = (int)$visibility;
+
             // overwrite or save file
             Storage::disk($disk)->putFileAs(
                 $path,
                 $file,
                 $file->getClientOriginalName(),
-                ($visibility)?"private":"public"
+                ($visibility===0)?"private":"public"
             );
         }
 
@@ -410,12 +412,14 @@ class FileManager
      */
     public function updateFile($disk, $path, $file, $visibility=0)
     {
+
+	$visibility = (int)$visibility;
         // update file
         Storage::disk($disk)->putFileAs(
             $path,
             $file,
             $file->getClientOriginalName(),
-            ($visibility)?"private":"public"
+            ($visibility===0)?"private":"public"
         );
 
         // path for new file
